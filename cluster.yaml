@@ -1,0 +1,19 @@
+# Common configuration.
+box: "http://cloud.centos.org/centos/7/vagrant/x86_64/images/CentOS-7-x86_64-Vagrant-1701_01.VirtualBox.box"
+cluster_name: "my-cluster"
+master_network: "172.20.1."
+agent_network: "172.20.2."
+
+# Master configuration.
+num_masters: 3
+master_mem: 1024
+master_cpus: 1
+
+# Agent configuration.
+num_agents: 1
+agent_mem: 1024
+agent_cpus: 1
+
+# Router configuration.
+router_mem: 512
+router_cpus: 1

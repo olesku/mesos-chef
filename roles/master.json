@@ -1,0 +1,19 @@
+{
+  "name": "master",
+  "default_attributes": { },
+  "override_attributes": {
+    "mesos": {
+      "clusterName": "my-cluster",
+      "master": true,
+      "zookeeper": true,
+      "etcd": true,
+      "marathon": true
+    }
+  },
+  "json_class": "Chef::Role",
+  "description": "Master node",
+  "chef_type": "role",
+  "run_list": [
+    "recipe[mesos]"
+	]
+}

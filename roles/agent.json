@@ -1,0 +1,16 @@
+{
+  "name": "agent",
+  "default_attributes": { },
+  "override_attributes": {
+    "mesos": {
+      "clusterName": "my-cluster",
+      "agent": true
+    }
+  },
+  "json_class": "Chef::Role",
+  "description": "Agent node",
+  "chef_type": "role",
+  "run_list": [
+    "recipe[mesos]"
+	]
+}
