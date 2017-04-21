@@ -5,12 +5,12 @@ master_network: "172.20.1."
 agent_network: "172.20.2."
 
 # Master configuration.
-num_masters: 3
+num_masters: 1
 master_mem: 1024
 master_cpus: 1
 
 # Agent configuration.
-num_agents: 1
+num_agents: 2
 agent_mem: 1024
 agent_cpus: 1
 

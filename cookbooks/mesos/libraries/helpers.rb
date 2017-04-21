@@ -71,9 +71,5 @@ module MesosCookbook
     def genZkURL(nodes, path)
       "zk://#{nodes.join(',')}/#{path}"
     end
-
-    def getEtcdNodes
-      getNodes('etcd')
-    end
   end
 end

@@ -19,7 +19,15 @@ end
 if isNodeType('etcd')
   etcd_node clusterName do
     action :install
-    nodes getEtcdNodes
+    nodes getNodes('etcd')
+  end
+end
+
+if isNodeType('etcd_proxy')
+  etcd_node clusterName do
+    action :install
+    proxy true
+    nodes getNodes('etcd')
   end
 end
 
@@ -40,6 +48,13 @@ end
 
 if isNodeType('marathon')
   marathon_node clusterName do
+    action :install
+    zk_nodes getZookeeperNodes
+  end
+end
+
+if isNodeType('chronos')
+  chronos_node clusterName do
     action :install
     zk_nodes getZookeeperNodes
   end

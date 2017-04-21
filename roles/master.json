@@ -7,7 +7,8 @@
       "master": true,
       "zookeeper": true,
       "etcd": true,
-      "marathon": true
+      "marathon": true,
+      "chronos": true
     }
   },
   "json_class": "Chef::Role",

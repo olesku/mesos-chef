@@ -4,7 +4,9 @@
   "override_attributes": {
     "mesos": {
       "clusterName": "my-cluster",
-      "agent": true
+      "agent": true,
+      "etcd_proxy": true,
+      "calico": true
     }
   },
   "json_class": "Chef::Role",
