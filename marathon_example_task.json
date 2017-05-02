@@ -1,0 +1,30 @@
+{
+  "id": "whalesay",
+  "cpus": 0.1,
+  "mem": 64.0,
+  "container": {
+      "type": "DOCKER",
+      "docker": {
+          "network": "USER",
+          "image": "nikovirtala/whalesay",
+          "portMappings": [
+            { "containerPort": 80, "hostPort": 0 }
+          ]
+      }
+  },
+  "ipAddress": {
+      "networkName": "calico-default"
+  },
+  "healthChecks": [
+      {
+        "path": "/",
+        "portIndex": 0,
+        "protocol": "HTTP",
+        "gracePeriodSeconds": 300,
+        "intervalSeconds": 60,
+        "timeoutSeconds": 20,
+        "maxConsecutiveFailures": 3,
+        "ignoreHttp1xx": false
+      }
+    ]
+}

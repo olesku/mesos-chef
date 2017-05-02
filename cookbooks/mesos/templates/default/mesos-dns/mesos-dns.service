@@ -1,0 +1,15 @@
+[Unit]
+Description=mesos-dns
+Documentation=https://github.com/mesosphere/mesos-dns
+After=network.target
+
+[Service]
+User=root
+Type=simple
+ExecStart=/usr/bin/mesos-dns -logtostderr -config /etc/mesos-dns/config.json
+Restart=always
+RestartSec=10s
+LimitNOFILE=40000
+
+[Install]
+WantedBy=multi-user.target

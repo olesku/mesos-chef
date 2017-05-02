@@ -1,0 +1,1 @@
+DOCKER_NETWORK_OPTIONS=--cluster-store=etcd://127.0.0.1:2379

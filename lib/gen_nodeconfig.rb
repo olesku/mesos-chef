@@ -1,5 +1,4 @@
 require 'yaml'
-require 'pp'
 
 def loadConfig
   base_dir = File.expand_path(File.dirname(__FILE__))
@@ -12,10 +11,12 @@ def loadConfig
     agents: []
   }
 
+  ip_n = 2
+
   # Master config.
   for i in 1..conf['num_masters'] do
     hostname = sprintf('master-%02d', i)
-    ip = sprintf('%s%i', conf['master_network'], (i + 1))
+    ip = sprintf('%s%i', conf['network'], ip_n)
 
     nodeConfig[:nodes] << {
       master_id: i,
@@ -27,12 +28,13 @@ def loadConfig
     }
 
     nodeConfig[:masters] << ip
+    ip_n += 1
   end
 
   # Agent config.
   for i in 1..conf['num_agents'] do
     hostname = sprintf('agent-%02d', i)
-    ip = sprintf('%s%i', conf['agent_network'], (i + 1))
+    ip = sprintf('%s%i', conf['network'], ip_n)
 
     nodeConfig[:nodes] << {
       agent_id: i,
@@ -44,6 +46,7 @@ def loadConfig
     }
 
     nodeConfig[:agents] << ip
+    ip_n += 1
   end
 
   nodeConfig

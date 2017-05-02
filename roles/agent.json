@@ -4,9 +4,16 @@
   "override_attributes": {
     "mesos": {
       "clusterName": "my-cluster",
-      "agent": true,
-      "etcd_proxy": true,
-      "calico": true
+
+      "components": {
+        "agent": true,
+        "etcd_proxy": true,
+        "calico": true,
+        "mesos-dns": true
+      },
+
+      "config": {
+      }
     }
   },
   "json_class": "Chef::Role",

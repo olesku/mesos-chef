@@ -1,0 +1,21 @@
+[Unit]
+Description=calico-node
+After=docker.service
+Requires=docker.service
+
+[Service]
+ExecStartPre=-/usr/bin/docker rm -f calico-node
+ExecStart=/usr/bin/docker run --net=host --privileged \
+ --name=calico-node \
+ --env-file=/etc/calico/calico.env \
+ -v /var/log/calico:/var/log/calico \
+ -v /run/docker/plugins:/run/docker/plugins \
+ -v /lib/modules:/lib/modules \
+ -v /var/run/calico:/var/run/calico \
+ -v /var/run/docker.sock:/var/run/docker.sock \
+ quay.io/calico/node:latest
+
+ExecStop=-/usr/bin/docker stop calico-node
+
+[Install]
+WantedBy=multi-user.target

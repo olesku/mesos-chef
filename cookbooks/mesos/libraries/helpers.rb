@@ -1,7 +1,7 @@
 module MesosCookbook
   module Helpers
     def isNodeType(nodeType)
-      node['mesos'][nodeType] == true ? true : false
+      node['mesos']['components'][nodeType] == true ? true : false
     end
 
     def getNodes(nodeType)
@@ -18,7 +18,7 @@ module MesosCookbook
         }
       end
 
-      search(:node, "mesos_#{nodeType}:true AND mesos_clusterName:#{node['mesos']['clusterName']}").each do |n|
+      search(:node, "mesos_components_#{nodeType}:true AND mesos_clusterName:#{node['mesos']['clusterName']}").each do |n|
         node.default['mesos']['nodes'][nodeType] << {
           ipaddress: getIP(n),
           hostname: n[:hostname]

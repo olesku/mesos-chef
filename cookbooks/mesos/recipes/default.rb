@@ -1,61 +1,38 @@
-Chef::Recipe.send(:include, MesosCookbook::Helpers)
+extend MesosCookbook::Helpers
 
-clusterName = node['mesos']['clusterName']
+Chef::Application.fatal!('mesos.clusterName is not set!') if node['mesos']['clusterName'].nil?
 
-Chef::Application.fatal!('mesos.clusterName is not set!') if clusterName.empty?
-
-mesosphere_repository 'default' do
-  action :install
+execute 'yum -q makecache' do
+  action :nothing
 end
 
-if isNodeType('zookeeper')
-  zookeeper_node clusterName do
-    action :install
-    id getMyZookeeperId
-    nodes getNodes('zookeeper')
-  end
+template '/etc/pki/rpm-gpg/RPM-GPG-KEY-mesosphere' do
+  source 'mesosphere/RPM-GPG-KEY-mesosphere'
+  action :create
 end
 
-if isNodeType('etcd')
-  etcd_node clusterName do
-    action :install
-    nodes getNodes('etcd')
-  end
+template '/etc/yum.repos.d/mesosphere.repo' do
+  mode '0644'
+  source 'mesosphere/mesosphere.repo'
+  notifies :run, resources(execute: 'yum -q makecache'), :immediately
 end
 
-if isNodeType('etcd_proxy')
-  etcd_node clusterName do
-    action :install
-    proxy true
-    nodes getNodes('etcd')
-  end
-end
+nodeRecipes = {
+  'zookeeper': [ 'mesos::zookeeper' ],
+  'master': [ 'mesos::master' ],
+  'agent': [ 'mesos::agent' ],
+  'etcd': [ 'mesos::etcd' ],
+  'etcd_proxy': [ 'mesos::etcd' ],
+  'calico': [ 'mesos::calico' ],
+  'mesos-dns': [ 'mesos::mesos-dns' ],
+  'marathon': [ 'mesos::marathon' ],
+  'chronos': [ 'mesos::chronos' ]
+}
 
-if isNodeType('master')
-  mesos_master clusterName do
-    action :install
-    zk_nodes getZookeeperNodes
-    quorum getZkQuorum
-  end
-end
-
-if isNodeType('agent')
-  mesos_agent clusterName do
-    action :install
-    zk_nodes getZookeeperNodes
-  end
-end
-
-if isNodeType('marathon')
-  marathon_node clusterName do
-    action :install
-    zk_nodes getZookeeperNodes
-  end
-end
-
-if isNodeType('chronos')
-  chronos_node clusterName do
-    action :install
-    zk_nodes getZookeeperNodes
+nodeRecipes.each do |nodeType, recipes|
+  if isNodeType(nodeType)
+    recipes.each do |r|
+      include_recipe r
+    end
   end
 end

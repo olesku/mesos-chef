@@ -39,16 +39,4 @@ Vagrant.configure("2") do |config|
       end
     end
   end
-
-  # Router
-#  config.vm.define "vyos-router" do |vyos|
-#    vyos.vm.box = "higebu/vyos"
-#    vyos.vm.hostname = "vyos-router"
-#
-#  vyos.vm.provider :virtualbox do |v,override|
-#      v.memory = 512
-#      v.cpus = 1
-#      override.vm.network :private_network, :ip => "172.20.2.100"
-#    end
-#  end
 end

@@ -4,11 +4,15 @@
   "override_attributes": {
     "mesos": {
       "clusterName": "my-cluster",
-      "master": true,
-      "zookeeper": true,
-      "etcd": true,
-      "marathon": true,
-      "chronos": true
+
+      "components": {
+        "master": true,
+        "zookeeper": true,
+        "etcd": true,
+        "calico": true,
+        "marathon": true,
+        "chronos": true
+      }
     }
   },
   "json_class": "Chef::Role",
