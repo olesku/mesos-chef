@@ -1,7 +1,7 @@
 extend MesosCookbook::Helpers
 
 zkNodes = getZookeeperNodes
-zkUrl = genZkURL(zkNodes, node['mesos']['config']['master']['zookeeper_path'])
+zkUrl = genZkURL(zkNodes, node['mesos']['config']['zookeeper_path'])
 
 remote_file '/usr/bin/mesos-dns' do
   source "https://github.com/mesosphere/mesos-dns/releases/download/#{node['mesos']['config']['mesos-dns']['version']}/mesos-dns-#{node['mesos']['config']['mesos-dns']['version']}-linux-amd64"
